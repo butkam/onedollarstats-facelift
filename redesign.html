@@ -441,6 +441,9 @@ html[data-theme="dark"] .rd-seg-btn[aria-checked="true"]{box-shadow:0 1px 2px va
 .rd-step-line--today{stroke-dasharray:5px}
 </style>
 <style id="responsive">
+/* no double-tap zoom on touch screens (taps on chart days, tabs and buttons); pinch-zoom stays available */
+html,body,button,a,svg,canvas{touch-action:manipulation}
+svg.chart-svg{touch-action:pan-y}
 /* =========================================================
    Responsive. One gutter on narrow screens: 16px for header, toolbar and card content.
    Cards go edge to edge on phones (the site's own mobile pattern), separated by the grey page.
