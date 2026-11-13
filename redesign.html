@@ -881,21 +881,27 @@ document.querySelectorAll('.rd-seg').forEach(g => g.addEventListener('click', e 
   };
   // tiny seeded PRNG so textures are identical in preview and export
   const rng = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
-  // particle waves: particles scattered at random (jittered grid, no visible rows) over a soft diagonal wave field;
-  // the wave shows only through density, size and brightness, so nothing lines up. Low contrast on purpose.
+  // particle waves: a wavy cloth. A smooth height field of soft diagonal folds is "lit" from the top left;
+  // particles are scattered at random (no rows) and kept where the cloth catches light, so the folds read as
+  // bright and dark bands of grain, like light on fabric. Deterministic, so preview and export match.
   function wavePoints(W, H) {
-    const R = rng(23), D = Math.max(W, H), cs = D / 96, buckets = [[], [], [], [], []];
-    const ca = Math.cos(.5), sa = Math.sin(.5);
+    const R = rng(23), D = Math.max(W, H), cs = D / 120, buckets = [[], [], [], [], []];
+    const ca = Math.cos(.55), sa = Math.sin(.55);
+    const h = (u, v) => Math.sin(u * 11 + Math.sin(v * 3.1) * 2.2) * .6 + Math.sin(u * 4.2 + v * 2.6 + .8) * .3 + Math.sin(v * 7 - u * 2.1) * .12;
+    const lx = -.55, ly = -.62, lz = .56, e = .004;               // light from the upper left
     for (let gy = 0; gy < H + cs; gy += cs) for (let gx = 0; gx < W + cs; gx += cs) {
       const x = gx + R() * cs, y = gy + R() * cs;
       const u = (x * ca + y * sa) / D, v = (-x * sa + y * ca) / D;
-      const hgt = Math.sin(u * 8 + Math.sin(v * 3.2) * 1.4) * .6 + Math.sin(u * 3.4 - v * 2.1 + 1.1) * .4;   // -1..1
-      const t = (hgt + 1) / 2;
-      if (R() > .3 + t * .7) continue;                               // thinner in the troughs
-      const r = D / 1600 * (.5 + t * .9 + R() * .4);
-      buckets[Math.min(4, Math.floor((t * .8 + R() * .2) * 5))].push([+x.toFixed(1), +y.toFixed(1), +r.toFixed(2)]);
+      const du = (h(u + e, v) - h(u - e, v)) / (2 * e) * .14, dv = (h(u, v + e) - h(u, v - e)) / (2 * e) * .14;
+      // surface normal in image space (rotate the gradient back), then Lambert shading
+      const nx = -(du * ca - dv * sa), ny = -(du * sa + dv * ca), nz = 1, nl = Math.hypot(nx, ny, nz);
+      let light = Math.max(0, (nx * lx + ny * ly + nz * lz) / nl);
+      light = Math.min(1, Math.max(0, (light - .2) / .75));          // stretch to 0..1
+      if (R() > .03 + Math.pow(light, 2.2) * .97) continue;          // grain gathers on the lit side of each fold
+      const r = D / 1600 * (.45 + light * .75 + R() * .3);
+      buckets[Math.min(4, Math.floor((light * .85 + R() * .15) * 5))].push([+x.toFixed(1), +y.toFixed(1), +r.toFixed(2)]);
     }
-    return buckets.map((pts, i) => ({ pts, a: [.07, .11, .16, .22, .3][i] }));
+    return buckets.map((pts, i) => ({ pts, a: [.08, .14, .22, .32, .45][i] }));
   }
   // topography: contour lines of a smooth height field (sum of gaussian hills), traced with marching squares
   function topoPath(W, H) {
