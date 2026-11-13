@@ -905,7 +905,7 @@ document.querySelectorAll('.rd-seg').forEach(g => g.addEventListener('click', e 
       const r = D / 1600 * (.7 + stretch * 1.9);
       buckets[stretch < .33 ? 0 : stretch < .66 ? 1 : 2].push([+x.toFixed(1), +y.toFixed(1), +r.toFixed(2)]);
     }
-    return buckets.map((pts, i) => ({ pts, a: [.62, .8, .96][i] }));
+    return buckets.map((pts, i) => ({ pts, a: [.1, .15, .22][i] }));   // barely there: a quiet texture behind the card
   }
   // topography: contour lines of a smooth height field (sum of gaussian hills), traced with marching squares
   function topoPath(W, H) {
