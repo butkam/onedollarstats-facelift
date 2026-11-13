@@ -894,12 +894,12 @@ document.querySelectorAll('.rd-seg').forEach(g => g.addEventListener('click', e 
   function wavePoints(W, H) {
     const D = Math.max(W, H), g = D / 64, buckets = [[], [], []];
     const ca = Math.cos(.5), sa = Math.sin(.5);                      // wave travels diagonally
-    const k = Math.PI * 2 * 3.2 / D;                                 // ~3 folds across the image
+    const k = Math.PI * 2 * 1.15 / D;                                // one broad wave across the image
     const A = .55 / k;                                               // displacement amplitude (keeps the grid from folding over)
     for (let gy = -2 * g; gy < H + 2 * g; gy += g) for (let gx = -2 * g; gx < W + 2 * g; gx += g) {
       const along = gx * ca + gy * sa, across = -gx * sa + gy * ca;
-      const ph = k * along + Math.sin(across / D * 4.4) * 1.3;        // folds bend a little, like fabric
-      const x = gx + A * Math.sin(ph) * ca, y = gy + A * Math.sin(ph) * sa + Math.sin(gx / D * 5 + 1) * g * .35;
+      const ph = k * along + Math.sin(across / D * 1.8) * .9;        // folds bend a little, like fabric
+      const x = gx + A * Math.sin(ph) * ca, y = gy + A * Math.sin(ph) * sa + Math.sin(gx / D * 2.2 + 1) * g * .35;
       if (x < -g || x > W + g || y < -g || y > H + g) continue;
       const stretch = (1 + Math.cos(ph)) / 2;                        // 0 = bunched, 1 = spread
       const r = D / 1600 * (.7 + stretch * 1.9);
