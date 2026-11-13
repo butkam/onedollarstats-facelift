@@ -453,6 +453,10 @@ html[data-theme="dark"] .rd-seg-btn[aria-checked="true"]{box-shadow:0 1px 2px va
   /* closed dropdowns (calendar, menus) sit off-canvas and would widen the page;
      body overflow propagates to the viewport here, so this does not create a nested scroller */
   body{overflow-x:hidden}
+  /* fix horizontal scroll at the source (iOS Safari ignores overflow-x on body): */
+  .debug-banner-container.svelte-nz75eg{overflow:hidden;max-width:100vw}            /* dev banner art is 1323px wide */
+  .dropdown.hidden-dropdown,.dropdown.dropdown--hidden{display:none!important}         /* closed menus/calendar kept their box off-screen */
+  .analytics-wrapper{overflow-x:clip}
   /* header: chevron-only back link, project name truncates, DEV toggle hidden (a localhost tool) */
   .header.svelte-nf84np{padding:0 16px!important;gap:8px}
   .header.svelte-nf84np>div:not(.user-wrap){min-width:0;flex:1 1 auto}
