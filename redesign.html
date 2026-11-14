@@ -601,8 +601,8 @@ html:has(.rd-snap[open]) body{overflow:hidden!important}
 .rd-day{display:flex;align-items:center;height:28px}
 .rd-day-hint{font:400 14px/20px Inter,sans-serif;color:var(--g-text-2)}
 .rd-day-hint[hidden],.rd-daychip[hidden]{display:none}
-.rd-daychip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px 0 14px;border:1px solid var(--g-line);border-radius:999px;background:transparent;font:400 14px/20px Inter,sans-serif;color:var(--g-text);transition:background-color .15s,border-color .15s}
-.rd-daychip:hover{background:var(--g-hover);border-color:color-mix(in srgb,var(--g-text-2) 50%,transparent)}
+.rd-daychip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px 0 14px;border:0;border-radius:999px;background:var(--g-page);font:400 14px/20px Inter,sans-serif;color:var(--g-text);transition:background-color .15s,border-color .15s}
+.rd-daychip:hover{background:var(--g-fill)}
 .rd-daychip .rd-icon{width:14px!important;height:14px!important;margin-right:-2px}
 .rd-daychip:focus-visible,.rd-snap-canvas:focus-visible{outline:2px solid var(--chart-default);outline-offset:2px}
 .rd-snap-stage{overflow:hidden;isolation:isolate}   /* keeps the guides' z-index inside the stage, under menus from the bar */
