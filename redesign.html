@@ -573,7 +573,7 @@ html[data-theme="dark"] .rd-swatch:not([aria-checked="true"]){box-shadow:inset 0
   .rd-export>button{height:40px}
   .rd-export-main{flex:1;justify-content:center}
 }
-.rd-bgpick{position:relative}
+.rd-bgpick{position:relative;display:flex;height:28px}   /* block-level box: no inline line-box gap under the trigger */
 .rd-bgpick-trigger{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 6px 0 4px;border-radius:999px;background:var(--g-page);transition:background-color .15s}
 .rd-bgpick-trigger:hover{background:var(--g-fill)}
 .rd-bgpick-trigger .rd-swatch{width:20px;height:20px}
