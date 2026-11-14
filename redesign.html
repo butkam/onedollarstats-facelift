@@ -527,7 +527,7 @@ svg.chart-svg{touch-action:pan-y}
 .rd-snap-controls{display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px 20px;flex:1;min-width:0}
 .rd-snap-controls::-webkit-scrollbar{display:none}
 .rd-field{display:flex;flex-direction:column;gap:8px;flex:none}
-.rd-field-label{font:400 12px/16px Inter,sans-serif;color:var(--g-text-2)}
+.rd-field-label{font:400 12px/16px Inter,sans-serif;color:color-mix(in srgb,var(--g-text-2) 70%,var(--g-surface))}   /* quieter than the controls they name */
 .rd-field>.rd-seg{margin:0}
 .rd-snap .rd-seg-btn{font-variant-numeric:tabular-nums}
 .rd-swatches{display:flex;gap:6px;height:28px;align-items:center}
@@ -601,9 +601,9 @@ html:has(.rd-snap[open]) body{overflow:hidden!important}
 .rd-day{display:flex;align-items:center;height:28px}
 .rd-day-hint{font:400 14px/20px Inter,sans-serif;color:var(--g-text-2)}
 .rd-day-hint[hidden],.rd-daychip[hidden]{display:none}
-.rd-daychip{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 6px 0 12px;border-radius:999px;background:color-mix(in srgb,var(--chart-default) 16%,var(--g-surface));font:400 14px/20px Inter,sans-serif;color:var(--g-text);transition:background-color .15s}
-.rd-daychip:hover{background:color-mix(in srgb,var(--chart-default) 26%,var(--g-surface))}
-.rd-daychip .rd-icon{width:14px!important;height:14px!important}
+.rd-daychip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px 0 14px;border:1px solid var(--g-line);border-radius:999px;background:transparent;font:400 14px/20px Inter,sans-serif;color:var(--g-text);transition:background-color .15s,border-color .15s}
+.rd-daychip:hover{background:var(--g-hover);border-color:color-mix(in srgb,var(--g-text-2) 50%,transparent)}
+.rd-daychip .rd-icon{width:14px!important;height:14px!important;margin-right:-2px}
 .rd-daychip:focus-visible,.rd-snap-canvas:focus-visible{outline:2px solid var(--chart-default);outline-offset:2px}
 .rd-snap-stage{overflow:hidden;isolation:isolate}   /* keeps the guides' z-index inside the stage, under menus from the bar */
 .rd-guide{position:absolute;z-index:2;pointer-events:none;background:color-mix(in srgb,var(--g-text) 16%,transparent)}
